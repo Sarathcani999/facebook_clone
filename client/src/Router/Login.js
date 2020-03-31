@@ -5,9 +5,11 @@ import SignIn from '../components/Login/Login'
 import { Spinner } from 'reactstrap';
 
 function Login(props) {
+
+    
     return (
-        <div>
-            {props.isAuthenticated === false ? <SignIn /> : props.isAuthenticated === true ? <Redirect to='/' /> : (
+        <div className="content">
+            {props.isAuthenticated === false ? <SignIn /> : props.isAuthenticated === true ? <Redirect to={'/Person/' + props.user.username} /> : (
             <center>
                 <Spinner />
             </center>
@@ -18,7 +20,8 @@ function Login(props) {
 
 const mapStateToProps = state => {
     return {
-        isAuthenticated : state.auth.isAuthenticated 
+        isAuthenticated : state.auth.isAuthenticated ,
+        user : state.auth.user
     }
 }
 

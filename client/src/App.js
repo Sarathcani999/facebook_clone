@@ -11,26 +11,29 @@ import About from './Router/About';
 // import HomePage from './Router/HomePage';
 import Login from './Router/Login';
 import SignUp from './Router/SignUp';
-import { loadUser, fetchItems } from './redux';
+import { loadUser } from './redux';
+import Home from './Router/Home';
 import Dashboard from './Router/Dashboard';
+import NotFound from './Router/NotFound';
 
 function App() {
   useEffect(() => {
     store.dispatch(loadUser())
-    store.dispatch(fetchItems())
+    // store.dispatch(fetchItems())
   } , [])
   return (
     <Provider store={store}>
       <Router >
         <div className="App">
-          <div className="content" >
             <Switch >
-              <Route path='/' exact component={Dashboard} />
               <Route path='/about' exact component={About} />
-              <Route path='/login' exact component={Login} />
+              <Route path='/' exact component={Login} />
               <Route path='/register' exact component={SignUp} />
+              <Route path='/home' exact component={Home} />
+              <Route path='/Person/:username' exact component={Dashboard} />
+              <Route path='*' component={NotFound} />
+
             </Switch>
-          </div>
 
 
           {/* <footer className="site-footer">

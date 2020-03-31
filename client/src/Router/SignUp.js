@@ -8,7 +8,7 @@ function SignUp(props) {
 
     return (
         <div>
-            {props.isAuthenticated === false ? <Register /> : props.isAuthenticated === true ? <Redirect to='/' /> : (
+            {props.isAuthenticated === false ? <Register /> : props.isAuthenticated === true ? <Redirect to={'/Person/' + props.user.username} /> : (
             <center>
                 <Spinner />
             </center>
@@ -20,7 +20,7 @@ function SignUp(props) {
 
 const mapStateToProps = state => {
     return {
-        isAuthenticated : state.auth.isAuthenticated 
+        isAuthenticated : state.auth.isAuthenticated  , user : state.auth.user
     }
 }
 

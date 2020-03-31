@@ -7,9 +7,10 @@ import {
     NavbarBrand,
     Nav,
     NavItem,
-    NavLink,
     Container,
-    Button
+    Button,
+    NavLink ,
+    Input
   } from 'reactstrap'
 import { connect } from 'react-redux'
 
@@ -17,46 +18,33 @@ function AppNavbar(props) {
     let [isOpen , setIsOpen] = useState(false)
     return (
         <div>
-        <Navbar color="dark" dark expand="sm" className="mb-5">
+        <Navbar color="light" light expand="sm" className="mb-5">
             <Container>
-                <NavbarBrand href="/">Boiler Plate</NavbarBrand>
-                <NavbarToggler onClick={() => setIsOpen(!isOpen)} />
-                <Collapse isOpen={isOpen} navbar>
-                    <Nav className="ml-auto" navbar>
-                        {/* <NavItem> 
-                            <NavLink href="/register" >
-                                Register
-                            </NavLink>
-                        </NavItem>                                
-                        <NavItem> 
-                            <NavLink href="/login" >
-                                Login
-                            </NavLink>
-                        </NavItem>                                
-                        <NavItem> 
-                            <NavLink href="/" >
-                                Home
-                            </NavLink>
-                        </NavItem>                                
-                        <NavItem>  
-                            <NavLink href="/about" >
-                                About
-                            </NavLink>
-                        </NavItem> */}
-
-
-
-                        <NavItem>
-                            <NavLink href="https://github.com/Sarathcani999/ShoppingListMERN" >
-                                Repository
-                            </NavLink>
+                <NavbarBrand href="/">Villa</NavbarBrand>
+                <Nav className="ml-auto" navbar style={{minWidth : "60%" , maxWidth : "100%" , padding : "0px 30px" , margin : 0}}>
+                    {(props.isAuthenticated === true) ? (
+                        <NavItem style={{width : "100%"}}>
+                            <Input type="search" placeholder="Search a User"/>
                         </NavItem>
+                    ) :
+                    <div></div>
+                    }
+                    
+                </Nav>
+                <NavbarToggler style={{border : "none"}} onClick={() => setIsOpen(!isOpen)} />
+                <Collapse isOpen={isOpen} navbar>
+                    
+                    <Nav className="ml-auto" navbar>
+                        {(props.isAuthenticated === true) ? (
+                            <NavItem>
+                            <NavLink style={{paddingTop : "5px"}} href="/home">Home</NavLink>
+                        </NavItem>
+                        ) :
+                        <div></div>
+                        }
 
                         {(props.isAuthenticated === true) ? (
                         <NavItem>
-                            {/* <NavLink onClick={() => props.logoutUser()}>
-                                Logout
-                            </NavLink> */}
                             <Button onClick = {() => props.logoutUser() } size="sm"> Logout </Button>
                         </NavItem>
                         ) :

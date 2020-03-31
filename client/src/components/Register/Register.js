@@ -63,6 +63,13 @@ function Register(props) {
                     </FormGroup>
                 </Col>
                 <Col>
+                    {props.errors.map(error => (
+                        <Alert key={uuid()} color="info" isOpen={visible} toggle={onDismiss}>
+                            {error}
+                        </Alert>
+                    ))}
+                </Col>
+                <Col>
                     <Input type="button" onClick={e => {
                         setVisible(true)
                         return props.createUser({
@@ -72,15 +79,9 @@ function Register(props) {
                 </Col>
                 </Form>
                 <Col >
-                    <p style={{marginTop : 10 }}>Already a member ? <Link to='/login'>Sign In</Link></p>
+                    <p style={{marginTop : 10 }}>Already a member ? <Link to='/'>Sign In</Link></p>
                 </Col>
-                <Col>
-                    {props.errors.map(error => (
-                        <Alert key={uuid()} color="info" isOpen={visible} toggle={onDismiss}>
-                            {error}
-                        </Alert>
-                    ))}
-                </Col>
+                
             </Container> 
 
         </div>

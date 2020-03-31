@@ -1,14 +1,21 @@
-import React from 'react'
-import AppNavbar from '../components/AppNavbar'
+import React , {useState} from 'react'
 import { connect } from 'react-redux'
-import { Spinner } from 'reactstrap'
-import List from '../components/List'
+import { Spinner, Label } from 'reactstrap'
+import Portal from '../components/User/Dashboard'
+import ViewPortal from '../components/User/ViewPortal'
 import { Redirect } from 'react-router-dom'
 
 function Dashboard(props) {
+    let {username} = props.match.params
+
+    const checkUserExists = () => {
+        // Make API call to check whether User found in database
+        
+        return false
+    }
+
     return (
         <div>
-            <AppNavbar />
             { (props.isAuthenticated === null) ? 
             (
                 // User Loading 
@@ -22,18 +29,15 @@ function Dashboard(props) {
             ((props.isAuthenticated === false) ? 
             (
                 // User Not Auth go to Login Page
-                <Redirect to="/login" />
-            ) : 
-            (
-                // User Authenticated go to home
-                <List />
-            ))} 
+                <Redirect to="/" />
+            ) : (username === props.user.username) ? (<Portal/>) : (checkUserExists() ? (<ViewPortal username={username}/>) : <Redirect to='/NOT_FOUND' />))}
         </div>
     )
 }
 
 const mapStateToProps = (state) => ({
-    isAuthenticated : state.auth.isAuthenticated
+    isAuthenticated : state.auth.isAuthenticated ,
+    user : state.auth.user
 })
 
 

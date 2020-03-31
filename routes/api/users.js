@@ -62,13 +62,14 @@ router.post('/Login' , (req,res) => {
                 if(!isMatch) res.status(400).json({"message" : "Wrong Pass"})
 
                 jwt.sign({ _id : user._id }, config.jwt , (err , token) => {
+                    
                     if (err) throw err
+
+                    delete user['password']
+
                     res.status(201).json({
                         token ,
-                        user : {
-                            _id: user._id , name : user.name , username : user.username
-                        } , 
-                        from_middleware : req.user
+                        user
                     })
                 })
             })
@@ -117,11 +118,12 @@ router.post('/Register' , (req,res) => {
                     .then(user => {
                         jwt.sign({ _id : user._id }, config.jwt , (err , token) => {
                             if (err) throw err
+
+                            delete user['password']
+
                             res.status(201).json({
                                 token ,
-                                user : {
-                                    _id: user._id , name : user.name , username : user.username
-                                }
+                                user
                             })
                         })
                     })

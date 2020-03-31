@@ -28,11 +28,13 @@ export const createUser = (user) => {
         var config = setupConfig(getState)
 
         axios.post('/api/auth/Register' , user , config)
-            .then( res => dispatch({
+            .then( res => {
+                dispatch({
                 type: REGISTER_SUCCESS ,
-                payload : res.data ,
+                payload : res.data ,        
+                })
                 
-            }))
+            })
             .catch( err => {
                 dispatch(returnErrors(err.response.data.message))
                 dispatch({
