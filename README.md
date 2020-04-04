@@ -1,4 +1,4 @@
-# Boiler Plate for MERN Stack Application
+# Social Media Application
 
 ## How to Setup ?
 * **`npm install`**
@@ -15,3 +15,17 @@ module.exports = {
 * Run in Server Mode : **`npm run server`**
 * Run in Client Mode : **`npm run client`**
 * Run in Developer Mode : **`npm run dev`**
+
+## Progress - Ongoing
+## Features
+* User authentication - &#x2611;
+* Profile View - &#x2611;
+* Home view - &#x2611;
+* Creating Post - &#x2611;
+* Deleting Post - &#x2611;
+* Liking a post - &#x2611;
+* Disliking a post - &#x2611;
+* Commenting on a Post - &#x2612;
+* Deleting your comment - &#x2612;
+* Searching for a user - &#x2612;
+* Friend Request / Follow request - &#x2612;
