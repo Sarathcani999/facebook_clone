@@ -1,17 +1,23 @@
-import React , {useState} from 'react'
+/**
+ * @docs
+ * 
+ * Router/Dashoard redirects to the portal or view portal based on isAuthenticated
+ */
+
+import React  from 'react'
 import { connect } from 'react-redux'
-import { Spinner, Label } from 'reactstrap'
+import { Spinner } from 'reactstrap'
 import Portal from '../components/User/Dashboard'
 import ViewPortal from '../components/User/ViewPortal'
 import { Redirect } from 'react-router-dom'
 
 function Dashboard(props) {
     let {username} = props.match.params
-
-    const checkUserExists = () => {
-        // Make API call to check whether User found in database
-        
-        return false
+    let viewUser = {
+        name : "NOT DEFINED" ,
+        occupation : "NOT FOUND" ,
+        bio : "NOT DEFINED" ,
+        city : "NOT DEFINED"
     }
 
     return (
@@ -30,13 +36,14 @@ function Dashboard(props) {
             (
                 // User Not Auth go to Login Page
                 <Redirect to="/" />
-            ) : (username === props.user.username) ? (<Portal/>) : (checkUserExists() ? (<ViewPortal username={username}/>) : <Redirect to='/NOT_FOUND' />))}
+            ) : (username === props.user.username) ? (<Portal/>) : (<ViewPortal viewUser = {viewUser}/>))}
         </div>
     )
 }
 
 const mapStateToProps = (state) => ({
     isAuthenticated : state.auth.isAuthenticated ,
+    token : state.auth.token ,
     user : state.auth.user
 })
 

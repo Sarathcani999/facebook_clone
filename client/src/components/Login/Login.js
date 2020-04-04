@@ -2,16 +2,21 @@ import React , {useState} from 'react'
 import AppNavbar from '../AppNavbar'
 import {
     Container, Col, Form, Row , Card ,
-    FormGroup, Label, Input, CardBody, CardFooter 
+    FormGroup, Label, Input, CardBody, CardFooter  , Alert
   } from 'reactstrap';
 import { connect } from 'react-redux';
+import uuid from 'react-uuid'
+
 import { loginUser, clearErrors} from '../../redux/index';
 import { Link } from 'react-router-dom'
 export const Login = (props) => {
 
     const [username, setUsername] = useState('')
     const [password , setPassword] = useState('')
-    const [ , setVisible] = useState(false);
+    const [ visible , setVisible] = useState(false);
+
+    const onDismiss = () => setVisible(false);
+    
 
     return (
         <div className="content">
@@ -26,12 +31,13 @@ export const Login = (props) => {
                         <p style={{color : "grey" , padding : "20px 0px 0px 0px"}}>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia corporis tenetur magnam accusantium temporibus. Perspiciatis voluptatum dolor repudiandae. Nulla porro officiis neque possimus inventore expedita dolorum eos tenetur illum nam.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia corporis tenetur magnam accusantium temporibus. Perspiciatis voluptatum dolor repudiandae. Nulla porro officiis neque possimus inventore expedita dolorum eos tenetur illum nam.Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia corporis tenetur magnam accusantium temporibus. Perspiciatis voluptatum dolor repudiandae. Nulla porro officiis neque possimus inventore expedita dolorum eos tenetur illum nam.</p>
                     </Col>
                     <Col xl="4" lg="4" md="6" >
-                        <Card style={{backgroundColor : "#f2f2f2" , border : "none"}}>
+                        <Card style={{backgroundColor : "#f2f2f2" , border : "none" , minHeight : "100%"}}>
                             <CardBody >
-                                <div style={{minHeight : "140px"}}>
-                                    <h2 style={{padding : "30px" , textAlign : "center"}}>Sign In</h2>
+                                <div>
+                                    <h2 style={{padding : "10px" , textAlign : "center"}}>Sign In</h2>
                                 </div>
                                 <Form>
+                                    
                                     <FormGroup>
                                         <Label>Username</Label>
                                         <Input
@@ -52,6 +58,7 @@ export const Login = (props) => {
                                             onChange={e => setPassword(e.target.value)}
                                         />
                                     </FormGroup>
+                                    
                                     <FormGroup>
                                         <Input type="button" className="btn btn-primary"
                                         onClick={() => {
@@ -61,67 +68,20 @@ export const Login = (props) => {
                                         }
                                         value="Login" />
                                     </FormGroup>
-                                </Form>
                                 <p style={{textAlign : "right"}}>Not a member ? <Link to='/register'>Register</Link></p>
+                                    <FormGroup>
+                                        {props.errors.map(error => (
+                                            <Alert key={uuid()} color="info" isOpen={visible} toggle={onDismiss}>
+                                                {error}
+                                            </Alert>
+                                        ))}
+                                    </FormGroup>
+                                </Form>
                             </CardBody>
                         </Card>
                     </Col>
                 </Row>
 
-
-                {/* <Col >
-                    <h2>Sign In</h2>
-                </Col>
-                <Form className="form" action='/' method="GET">
-                <Col>
-                    <FormGroup>
-                    <Label>Username</Label>
-                    <Input
-                        required
-                        type="text"
-                        value={username}
-                        placeholder="Username"
-                        onChange={e => setUsername(e.target.value)}
-                    />
-                    </FormGroup>
-                </Col>
-                <Col>
-                    <FormGroup>
-                    <Label for="examplePassword">Password</Label>
-                    <Input
-                    required
-                        type="password"
-                        value={password}
-                        placeholder="********"
-                        onChange={e => setPassword(e.target.value)}
-                    />
-                    </FormGroup>
-                </Col>
-                <Col>
-                <Input type="button" onClick={() => {
-                        setVisible(true)
-                        props.loginUser({username , password})
-                    }
-                    } value="Login" className="btn btn-primary"/>
-                </Col>
-                </Form>
-                <Col >
-                    <p style={{marginTop : 10 }}>Not a member ? <Link to='/register'>Register</Link></p>
-                    
-                </Col>
-                <Col style={{minHeight : "100px"}}>
-                    {props.errors.map(error => (
-                        <Alert key={uuid()} color="info" isOpen={visible} toggle={onDismiss}>
-                            {error}
-                        </Alert>
-                    ))}
-                </Col>
-                <Col >
-                    <hr />
-                    <p style={{textAlign : "center" , color : "grey"}}>
-                        &copy; Copyright 2020
-                    </p>
-                </Col> */}
             </Container>
             <CardFooter style={{backgroundColor : "white" , border : "none"}}>
                 <hr style={{width : "60%"}}/>

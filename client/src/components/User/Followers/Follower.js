@@ -1,22 +1,31 @@
 import React from 'react'
 import { ListGroup, ListGroupItem } from 'reactstrap'
-import { Redirect, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 
-function Friends() {
+function Friends(props) {
     return (
         <div style={{padding : "20px"}}>
             <ListGroup>
+                {props.user.followers.map(follower => (
+                        <ListGroupItem>
+                            <Link to='/Person/user'>Hai</Link>
+                        </ListGroupItem>
+                    )
+                )}
                 <ListGroupItem>
-                    <Link className="lead" to='Person/user' style={{textDecoration : "none"}}>Sarath Click</Link>
-                    {/* <p >Sarath Click</p> */}
+                    <Link to='/Person/user'>Hai</Link>
                 </ListGroupItem>
-                <ListGroupItem>
-                    <p className="lead">Sarath</p>
-                </ListGroupItem>
-                
             </ListGroup>
         </div>
     )
 }
 
-export default Friends
+
+const mapStateToProps = state => {
+    return {
+        user : state.auth.user
+    }
+}
+
+export default connect(mapStateToProps, null)(Friends)

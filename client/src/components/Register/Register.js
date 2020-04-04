@@ -13,6 +13,9 @@ function Register(props) {
     const [username, setUsername] = useState('')
     const [name, setName] = useState('')
     const [password , setPassword] = useState('')
+    const [occupation , setOccupation] = useState('')
+    const [city , setCity] = useState('')
+    const [bio , setBio] = useState('')
     const [visible, setVisible] = useState(false);
 
     const onDismiss = () => setVisible(false);
@@ -63,6 +66,39 @@ function Register(props) {
                     </FormGroup>
                 </Col>
                 <Col>
+                    <FormGroup>
+                    <Label >Occupation</Label>
+                    <Input
+                        type="text"
+                        value={occupation}
+                        placeholder="Job Title / Student"
+                        onChange={e => setOccupation(e.target.value)}
+                    />
+                    </FormGroup>
+                </Col>
+                <Col>
+                    <FormGroup>
+                    <Label >City</Label>
+                    <Input
+                        type="text"
+                        value={city}
+                        placeholder="Ernakulam"
+                        onChange={e => setCity(e.target.value)}
+                    />
+                    </FormGroup>
+                </Col>
+                <Col>
+                    <FormGroup>
+                    <Label >Short Bio</Label>
+                    <Input
+                        type="text"
+                        value={bio}
+                        placeholder="Busy..."
+                        onChange={e => setBio(e.target.value)}
+                    />
+                    </FormGroup>
+                </Col>
+                <Col>
                     {props.errors.map(error => (
                         <Alert key={uuid()} color="info" isOpen={visible} toggle={onDismiss}>
                             {error}
@@ -73,7 +109,7 @@ function Register(props) {
                     <Input type="button" onClick={e => {
                         setVisible(true)
                         return props.createUser({
-                            username , name , password
+                            username , name , password , occupation , city , bio
                         })    
                     }} value="Sign Up" className="btn btn-primary"/>
                 </Col>

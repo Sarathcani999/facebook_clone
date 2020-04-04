@@ -22,9 +22,9 @@ function Dashboard(props) {
                     <Col xl="10" lg="9" style={{paddingTop : "0px"}} >
                         <Fade in={fadeIn} tag="h5" className="mt-3">
                             <p className="display-4">{props.user.name} </p>
-                            <p className="lead" style={{marginBottom : "2px" , marginTop : "2px"}}><i>Student</i></p>
-                            <p className="lead" style={{marginBottom : "2px" , marginTop : "2px"}}>Kerala , India</p>
-                            <p className="lead" style={{marginBottom : "2px" , marginTop : "12px"}}><i>"Student persuing Bsc. Agricultre"</i></p>
+                            <p className="lead" style={{marginBottom : "2px" , marginTop : "2px"}}><i>{props.user.occupation}</i></p>
+                            <p className="lead" style={{marginBottom : "2px" , marginTop : "2px"}}>{props.user.city}</p>
+                            <p className="lead" style={{marginBottom : "2px" , marginTop : "12px"}}><i>"{props.user.bio}"</i></p>
                         </Fade>    
                     </Col>
                 </Row>
@@ -49,17 +49,17 @@ function Dashboard(props) {
                     </Nav>
                     <TabContent activeTab={activeTab}>
                         <TabPane tabId="1">
-                            <Fade in={fadeIn} tag="h5" className="mt-3">
-                                <Posts hideCreatePost={false}/>
+                            <Fade in={fadeIn} className="mt-3">
+                                <Posts hideCreatePost={false} userPost={true}/>
                             </Fade>
                         </TabPane>
                         <TabPane tabId="2">
-                        <Fade in={fadeIn} tag="h5" className="mt-3">
+                        <Fade in={fadeIn} className="mt-3">
                                 <Followers />
                             </Fade>
                         </TabPane>
                         <TabPane tabId="3">
-                        <Fade in={fadeIn} tag="h5" className="mt-3">
+                        <Fade in={fadeIn} className="mt-3">
                                 <Following />
                             </Fade>
                         </TabPane>

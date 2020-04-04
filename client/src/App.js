@@ -11,7 +11,7 @@ import About from './Router/About';
 // import HomePage from './Router/HomePage';
 import Login from './Router/Login';
 import SignUp from './Router/SignUp';
-import { loadUser } from './redux';
+import { loadUser} from './redux';
 import Home from './Router/Home';
 import Dashboard from './Router/Dashboard';
 import NotFound from './Router/NotFound';
@@ -19,7 +19,6 @@ import NotFound from './Router/NotFound';
 function App() {
   useEffect(() => {
     store.dispatch(loadUser())
-    // store.dispatch(fetchItems())
   } , [])
   return (
     <Provider store={store}>

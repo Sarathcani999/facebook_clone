@@ -11,8 +11,10 @@ const jwt = require('jsonwebtoken')
 const config = require('../../config/keys')
 
 var auth = function (req, res, next) {
+
+    console.log("---------------------")
+    console.log(req.headers.x_auth)
     let token = req.headers.x_auth
-    
     // invalid token - synchronous
     try {
         jwt.verify(token, config.jwt , function(err , decoded){

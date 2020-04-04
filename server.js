@@ -16,6 +16,8 @@ const db = require('./config/keys')
 const chalk = require('chalk')
 const items = require('./routes/api/items')
 const users = require('./routes/api/users')
+const posts = require('./routes/api/posts/posts')
+const likes = require('./routes/api/posts/likes/likes')
 const cors = require('cors')
 
 // const routeDetails = require('./routes/middleware/routeName')
@@ -39,6 +41,8 @@ mongoose.connect(db.mongoURI , mongoOptions )
 // Use Routes
 app.use('/api/items' , items)
 app.use('/api/auth/' , users)
+app.use('/api/posts/' , posts)
+app.use('/api/posts/likes/' , likes)
 
 // PORT Establishment
 const port = process.env.PORT | 5000

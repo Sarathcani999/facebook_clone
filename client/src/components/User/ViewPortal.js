@@ -10,6 +10,10 @@ function ViewPortal(props) {
     const [activeTab, setActiveTab] = useState('1');
     const [isFollowing , setIsFollowing] = useState(false)
     
+
+    console.log("View Portal")
+    console.log(props.viewUser)
+
     return (
         <div>
             <AppNavbar />
@@ -21,10 +25,10 @@ function ViewPortal(props) {
                     </Col>
                     <Col xl="8" lg="7" md="10" sm="10" style={{paddingTop : "0px"}} >
                         <Fade in={fadeIn} tag="h5" className="mt-3">
-                            <p className="display-4">{props.username} </p>
-                            <p className="lead" style={{marginBottom : "2px" , marginTop : "2px"}}><i>Student</i></p>
-                            <p className="lead" style={{marginBottom : "2px" , marginTop : "2px"}}>Kerala , India</p>
-                            <p className="lead" style={{marginBottom : "2px" , marginTop : "12px"}}><i>"Student persuing Bsc. Agricultre"</i></p>
+                            <p className="display-4">{props.viewUser.name} </p>
+                            <p className="lead" style={{marginBottom : "2px" , marginTop : "2px"}}><i>{props.viewUser.occupation}</i></p>
+                            <p className="lead" style={{marginBottom : "2px" , marginTop : "2px"}}>{props.viewUser.city}</p>
+                            <p className="lead" style={{marginBottom : "2px" , marginTop : "12px"}}><i>"{props.viewUser.bio}"</i></p>
                         </Fade>    
                     </Col>
                     <Col xl="2" lg="2" md="2" sm="2" >
@@ -39,16 +43,6 @@ function ViewPortal(props) {
                             Posts
                         </NavLink>
                         </NavItem>
-                        {/* <NavItem>
-                        <NavLink className={activeTab ==='2' ? 'active' : ''} onClick={() => setActiveTab('2')}>
-                            Followers
-                        </NavLink>
-                        </NavItem>
-                        <NavItem>
-                        <NavLink className={activeTab ==='3' ? 'active' : ''} onClick={() => setActiveTab('3')}>
-                            Following
-                        </NavLink>
-                        </NavItem> */}
                     </Nav>
                     <TabContent activeTab={activeTab}>
                         <TabPane tabId="1">
@@ -56,16 +50,6 @@ function ViewPortal(props) {
                                 <Posts hideCreatePost={true}/>
                             </Fade>
                         </TabPane>
-                        {/* <TabPane tabId="2">
-                        <Fade in={fadeIn} tag="h5" className="mt-3">
-                                <Followers />
-                            </Fade>
-                        </TabPane>
-                        <TabPane tabId="3">
-                        <Fade in={fadeIn} tag="h5" className="mt-3">
-                                <Following />
-                            </Fade>
-                        </TabPane> */}
                     </TabContent>
                 </div>
             </Container>

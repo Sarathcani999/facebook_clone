@@ -33,6 +33,7 @@ const bcrypt = require('bcryptjs')
 const router = require('express').Router();
 const jwt = require('jsonwebtoken')
 const auth = require('../middleware/auth')
+// const deletePassword = require('../../Testing/test')
 
 // User Model
 const User = require('../../models/Users')
@@ -41,9 +42,6 @@ const User = require('../../models/Users')
 // @desc Login user
 // @access Public
 router.post('/Login' , (req,res) => {
-    // console.log("-------------------------------------------")
-    // console.log(user)
-
     // Simple Validation
     let {username , password} = req.body
     if (!username || !password) return res.status(400).json({"message" : "Credentials are not present"})
@@ -59,22 +57,23 @@ router.post('/Login' , (req,res) => {
 
         bcrypt.compare(password,user.password)
             .then(isMatch => {
-                if(!isMatch) res.status(400).json({"message" : "Wrong Pass"})
-
+                if(!isMatch) return res.status(400).json({"message" : "Wrong Pass"})
+                
                 jwt.sign({ _id : user._id }, config.jwt , (err , token) => {
                     
                     if (err) throw err
 
-                    delete user['password']
+                    // deletePassword(JSON.stringify(user))
+                    user.password = null
 
-                    res.status(201).json({
+                    res.status(200).json({
                         token ,
-                        user
+                        user 
                     })
                 })
             })
             .catch(err => {
-                console.log(err)
+                
                 res.status(400).json({"message" : err.message, "from" : "bcrypt"})
             })
     })
@@ -87,7 +86,8 @@ router.post('/Login' , (req,res) => {
 router.post('/Register' , (req,res) => {
 
     // Simple Validation
-    let {username , name , password } = req.body
+    let userdata =  req.body
+    let {username , name , password } = userdata
     if (!username || !password || !name) {
         return res.status(400).json({
             "message" : "Credentials are not present"
@@ -101,10 +101,6 @@ router.post('/Register' , (req,res) => {
                 return res.status(400).json({
                     "message" : "Duplicate User"
                 })
-            }
-            
-            var userdata = {
-                username , name , password
             }
 
             bcrypt.hash(password, 10, function(err, hash) {
@@ -143,4 +139,25 @@ router.get('/user' , auth , (req,res) => {
         .select('-password')
         .then(user => res.json(user))
 })
+
+// @route GET api/auth/:id
+// @desc Get a User Profile
+// @access Public
+router.get('/:id' , (req,res) => {
+
+    User.findOne({_id : req.params.id})
+        .select('-password -followers -following')
+        .then(user => res.json(user))
+        .catch(err => err.message)
+})
+
+// @route POST api/auth/followUser
+// @desc Follow a user
+// @access Private
+router.post('/followUser' , auth , (req,res) => {
+    let id_of_user_to_be_followed = req.body.user_id
+
+
+})
+
 module.exports = router
